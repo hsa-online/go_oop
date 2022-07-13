@@ -65,7 +65,9 @@ func ShapeIsLargerThan(this interface{}, area float64) bool {
 }
 ```
 Here we also meet with boilerplate `this` parameter 
-(yes, I know that it is a bad practice in Go to name it `this` or `self`, but we simulating the "classic OOP").
+(yes, I know that it is a bad practice in Go to name it `this` or `self`, but we are simulating the "classic OOP").
+Before calling the `GetArea` we are checking that the `*Shape` is actually passed to `IsLargerThan`.
+Then we getting a pointer to actual `instance` and make the call.
 
 ### Additional note ###
 
