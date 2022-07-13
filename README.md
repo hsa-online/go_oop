@@ -56,18 +56,65 @@ As our `GetArea` is "pure virtual" its value is `nil` after constructing `Shape`
 But we call the `GetArea` from `IsLargerThan`:
 
 ```Go
-func ShapeIsLargerThan(this interface{}, area float64) bool {
-  if shape, ok := this.(*Shape); ok {
-    return shape.GetArea(shape.instance) > area
-  } else {
-    panic(fmt.Errorf("wrong type passed %T", this))
+  func ShapeIsLargerThan(this interface{}, area float64) bool {
+    if shape, ok := this.(*Shape); ok {
+      return shape.GetArea(shape.instance) > area
+    } else {
+      panic(fmt.Errorf("wrong type passed %T", this))
+    }
   }
-}
 ```
+
 Here we also meet with boilerplate `this` parameter 
 (yes, I know that it is a bad practice in Go to name it `this` or `self`, but we are simulating the "classic OOP").
 Before calling the `GetArea` we are checking that the `*Shape` is actually passed to `IsLargerThan`.
-Then we getting a pointer to actual `instance` and make the call.
+Then we getting a pointer to actual `instance` and make the call. It is obvious that our "descendants" 
+should implement `GetArea` to allow this to work. Let's check how the `Circle` does that:
+
+```Go
+  func CircleGetArea(this interface{}) float64 {
+    if circle, ok := this.(*Circle); ok {
+      return math.Pi * circle.radius * circle.radius
+    } else {
+      panic(fmt.Errorf("wrong type passed %T", this))
+    } 
+  }
+```
+
+This function just converts the type of the parameter passed and then uses `radius` field to compute the area value.
+Complete definistion of `Circle` also includes the `parent` field and the `dispatch table` 
+for both `IsLargerThan`  and `GetArea`.
+
+```Go
+  type Circle struct {
+    parent *Shape
+
+    radius float64
+
+    IsLargerThan func(this interface{}, area float64) bool
+    GetArea func(this interface{}) float64
+  }
+```
+
+On creation of the new `Circle` we need not only to store the `radius`, 
+but also do all the work of our OOP manually:
+
+* create the `Shape`;
+* add the implementation of the "pure virtual" function to Skape``s dispatch table;
+* fill the dispatch table of `Circle`;
+
+```Go
+func NewCircle(radius float64) *Circle {
+  this := &Circle{}
+  this.parent = NewShape(this)
+  this.parent.GetArea = CircleGetArea
+  this.radius = radius
+  this.IsLargerThan = CircleIsLargerThan
+  this.GetArea = CircleGetArea
+
+  return this
+}
+```
 
 ### Additional note ###
 
