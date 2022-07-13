@@ -26,7 +26,7 @@ Even with this simplification we still getting structures with lots of boilerpla
   <img width="696" height="304" src="https://github.com/hsa-online/go_oop/blob/main/blob/oop_structs.png">
 </p>
 
-In `Shape` we want to have a “pure virtual” function `GetArea() float64` which is later implemented in both Circle and `Square`. 
+In `Shape` we want to have a “pure virtual” function `GetArea() float64` which is later implemented in both `Circle` and `Square`. 
 Also on any instance of the Shape we should be able to call `IsLargerThan(area float64) bool` which then calls the correct version of `GetArea()`.
 
 ### Additional note ###
