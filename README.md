@@ -1,3 +1,5 @@
+## Inheritance and "pure virtual" functions in Go ##
+
 This article tries to answer the question: whether it is possible to simulate "the classic OOP" in Go. 
 
 And the short answer is: yes, it's possible. But in result we get lots of clumsy boilerplate code, 
@@ -24,7 +26,8 @@ Even with this simplification we still getting structures with lots of boilerpla
   <img width="696" height="304" src="https://github.com/hsa-online/go_oop/blob/main/blob/oop_structs.png">
 </p>
 
-Additional note.
+### Additional note. ###
+
 From my point of view lots of boilerplate code is not as bad as the necessity of specifying an instance pointer everywhere 
 (as a first parameter of each function call). Uniform Function Call Syntax (UFCS) may help here, but unfortunately 
 we don’t have it in Go (sometimes UFCS helps to write elegant code 
