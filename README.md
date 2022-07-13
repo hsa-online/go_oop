@@ -27,7 +27,7 @@ Even with this simplification we still getting structures with lots of boilerpla
 </p>
 
 In `Shape` we want to have a “pure virtual” function `GetArea() float64` which is later implemented in both `Circle` and `Square`. 
-Also on any instance of the Shape we should be able to call `IsLargerThan(area float64) bool` which then calls the correct version of `GetArea()`.
+Also on any instance of the `Shape` we should be able to call `IsLargerThan(area float64) bool` which then calls the correct version of `GetArea()`.
 
 Our `Shape` is very simple:
 
@@ -51,6 +51,21 @@ It just holds a reference to actual `Circle` or `Square` in its `instance` field
     return this
   }
 ```
+
+As our `GetArea` is "pure virtual" its value is `nil` after constructing `Shape`. 
+But we call the `GetArea` from `IsLargerThan`:
+
+```Go
+func ShapeIsLargerThan(this interface{}, area float64) bool {
+  if shape, ok := this.(*Shape); ok {
+    return shape.GetArea(shape.instance) > area
+  } else {
+    panic(fmt.Errorf("wrong type passed %T", this))
+  }
+}
+```
+Here we also meet with boilerplate `this` parameter 
+(yes, I know that it is a bad practice in Go to name it `this` or `self`, but we simulating the "classic OOP").
 
 ### Additional note ###
 
