@@ -117,7 +117,7 @@ but also do all the work of our OOP manually:
 ```
 
 Our clumsy implementation of OOP forces us to "override" `IsLargerThan` in `Circle` 
-to be able to convert the type and call the `parent``s` one.
+to be able to convert the type and call the `parent's` one.
 
 ```Go
   func CircleIsLargerThan(this interface{}, area float64) bool {
