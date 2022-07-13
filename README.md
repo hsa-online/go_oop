@@ -101,19 +101,32 @@ but also do all the work of our OOP manually:
 
 * create the `Shape`;
 * add the implementation of the "pure virtual" function to Skape``s dispatch table;
-* fill the dispatch table of `Circle`;
+* fill the dispatch table of `Circle`.
 
 ```Go
-func NewCircle(radius float64) *Circle {
-  this := &Circle{}
-  this.parent = NewShape(this)
-  this.parent.GetArea = CircleGetArea
-  this.radius = radius
-  this.IsLargerThan = CircleIsLargerThan
-  this.GetArea = CircleGetArea
+  func NewCircle(radius float64) *Circle {
+    this := &Circle{}
+    this.parent = NewShape(this)
+    this.parent.GetArea = CircleGetArea
+    this.radius = radius
+    this.IsLargerThan = CircleIsLargerThan
+    this.GetArea = CircleGetArea
 
-  return this
-}
+    return this
+  }
+```
+
+Our clumsy implementation of OOP forces us to "override" `IsLargerThan` in `Circle` 
+to be able to convert the type and call the `parent``s` one.
+
+```Go
+  func CircleIsLargerThan(this interface{}, area float64) bool {
+    if circle, ok := this.(*Circle); ok {
+      return circle.parent.IsLargerThan(circle.parent, area)
+    } else {
+      panic(fmt.Errorf("wrong type passed %T", this))
+    }
+  }
 ```
 
 ### Additional note ###
