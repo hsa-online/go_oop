@@ -29,6 +29,29 @@ Even with this simplification we still getting structures with lots of boilerpla
 In `Shape` we want to have a “pure virtual” function `GetArea() float64` which is later implemented in both `Circle` and `Square`. 
 Also on any instance of the Shape we should be able to call `IsLargerThan(area float64) bool` which then calls the correct version of `GetArea()`.
 
+Our `Shape` is very simple:
+
+```Go
+  type Shape struct {
+    instance interface{}
+
+    IsLargerThan func(this interface{}, area float64) bool
+    GetArea func(this interface{}) float64
+  }
+```
+It just holds a reference to actual `Circle` or `Square` in its `instance` field (remember, we support only single level of "inheritance").
+`IsLargerThan` function will call the `GetArea`. Let``s construct the `Shape`:
+
+```Go
+  func NewShape(instance interface{}) *Shape {
+    this := &Shape{}
+    this.instance = instance
+    this.IsLargerThan = ShapeIsLargerThan
+
+    return this
+  }
+```
+
 ### Additional note ###
 
 From my point of view lots of boilerplate code is not as bad as the necessity of specifying an instance pointer everywhere 
