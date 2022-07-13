@@ -14,8 +14,8 @@ Assume we need to have this class hierarchy:
 </p>
 
 We know that there are no classes and no inheritance in Go, but internally the OOP concept is nothing more than a structure 
-with fields and a dispatch tables containing function pointers. From the other side in Go we have structs and first class 
-functions (we can assign functions to variables). So in theory nothing prevents us from storing both the fields and dispatch 
+with fields and dispatch tables containing function pointers. From the other side in Go we have structs and first class 
+functions (we can assign functions to variables). So in theory nothing prevents us from storing both the fields and a dispatch 
 table in the same struct. Also we will need to link structs to simulate inheritance, this adds one extra field into each “child” structure.
 
 To keep the method presented more or less simple we are allow to have only a single level of Parent->Child inheritance. 
