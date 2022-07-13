@@ -7,7 +7,9 @@ Use it at your own risk :).
 
 Assume we need to have this class hierarchy:
 
-![class hierarchy](https://github.com/hsa-online/go_oop/blob/main/blob/oop_classes.png)
+<p align="center">
+  <img width="476" height="248" src="https://github.com/hsa-online/go_oop/blob/main/blob/oop_classes.png">
+</p>
 
 We know that there are no classes and no inheritance in Go, but internally the OOP concept is nothing more than a structure 
 with fields and dispatch tables containing function pointers. From the other side in Go we have structs and first class 
@@ -18,7 +20,9 @@ To keep the method presented more or less simple we allow to have only a single 
 Multiple levels of inheritance will require more complex logic to keep the correct instance pointer in the middle of hierarchy. 
 Even with this simplification we still getting structures with lots of boilerplate:
 
-![class hierarchy](https://github.com/hsa-online/go_oop/blob/main/blob/oop_structs.png)
+<p align="center">
+  <img width="696" height="304" src="https://github.com/hsa-online/go_oop/blob/main/blob/oop_structs.png">
+</p>
 
 Additional note.
 From my point of view lots of boilerplate code is not as bad as the necessity of specifying an instance pointer everywhere 
