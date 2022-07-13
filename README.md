@@ -2,7 +2,7 @@
 
 This article tries to answer the question: whether it is possible to simulate "the classic OOP" in Go. 
 
-And the short answer is: yes, it's possible. But in result we get lots of clumsy boilerplate code, 
+And the short answer is: *yes, it's possible*. But in result we get lots of clumsy boilerplate code, 
 so the author warns that it’s more a theoretical possibility than a practically usable solution. 
 Actually this code is just a first idea born during discussion of this article’s main question with one of my colleagues. 
 Use it at your own risk :).
@@ -26,7 +26,10 @@ Even with this simplification we still getting structures with lots of boilerpla
   <img width="696" height="304" src="https://github.com/hsa-online/go_oop/blob/main/blob/oop_structs.png">
 </p>
 
-### Additional note. ###
+In `Shape` we want to have a “pure virtual” function `GetArea() float64` which is later implemented in both Circle and `Square`. 
+Also on any instance of the Shape we should be able to call `IsLargerThan(area float64) bool` which then calls the correct version of `GetArea()`.
+
+### Additional note ###
 
 From my point of view lots of boilerplate code is not as bad as the necessity of specifying an instance pointer everywhere 
 (as a first parameter of each function call). Uniform Function Call Syntax (UFCS) may help here, but unfortunately 
