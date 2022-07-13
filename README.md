@@ -32,6 +32,15 @@ Also on any instance of the Shape we should be able to call `IsLargerThan(area f
 ### Additional note ###
 
 From my point of view lots of boilerplate code is not as bad as the necessity of specifying an instance pointer everywhere 
-(as a first parameter of each function call). Uniform Function Call Syntax (UFCS) may help here, but unfortunately 
+(as a first parameter of each function call):
+
+```Go
+  area := 16.0
+
+  square := NewSquare(5)
+  fmt.Printf("%v is larger than %f: %t\n", square, area, square.IsLargerThan(square, area))
+```
+
+Uniform Function Call Syntax (UFCS) may help here, but unfortunately 
 we don’t have it in Go (sometimes UFCS helps to write elegant code 
 [for example](https://en.wikipedia.org/wiki/Uniform_Function_Call_Syntax) in Nim).
